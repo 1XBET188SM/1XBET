@@ -1,245 +1,253 @@
-/* خلفية داكنة وشكل الصفحة */
-body {
+/* love letter 2.css */
+
+/* من Uiverse.io by ilkhoeri */
+* {
+  box-sizing: border-box;
   margin: 0;
-  height: 100vh;
-  background-color: #1a1a2e;
-  color: white;
-  font-family: "Dancing Script", cursive;
+  padding: 0;
+  font-family: 'Dancing Script', cursive;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  background-color: #111; /* خلفية داكنة */
+  color: #fff;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  padding: 20px;
+  direction: rtl; /* للكتابة بالعربي */
 }
 
-/* النص المتحرك فوق الظرف */
+/* النص فوق الظرف */
 .header-text {
   font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #fff;
-  text-shadow:
-    0 0 5px #ff6f61,
-    0 0 10px #ff6f61,
-    0 0 20px #ff6f61,
-    0 0 40px #ff6f61;
-  animation: glowing 2.5s ease-in-out infinite alternate;
-  user-select: none;
+  color: #ff5e57;
   font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow:
+    0 0 5px #ff5e57,
+    0 0 10px #ff5e57,
+    0 0 20px #ff5e57,
+    0 0 40px #ff5e57;
+  animation: glow 2.5s ease-in-out infinite alternate;
+  user-select: none;
 }
 
-/* إيموجي اليد تحت النص */
+/* حركة النور للنص */
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 5px #ff5e57,
+      0 0 10px #ff5e57,
+      0 0 20px #ff5e57,
+      0 0 40px #ff5e57;
+  }
+  to {
+    text-shadow:
+      0 0 20px #ff5e57,
+      0 0 30px #ff5e57,
+      0 0 40px #ff5e57,
+      0 0 80px #ff5e57;
+  }
+}
+
+/* ايموجي اليد تحت النص */
 .hand-emoji {
   font-size: 3rem;
-  animation: glowing 2.5s ease-in-out infinite alternate;
+  color: #ff5e57;
   margin-bottom: 30px;
   user-select: none;
+  animation: bounce 2s infinite;
 }
 
-/* تأثير النور المتغير */
-@keyframes glowing {
-  0% {
-    text-shadow:
-      0 0 5px #ff6f61,
-      0 0 10px #ff6f61,
-      0 0 20px #ff6f61,
-      0 0 40px #ff6f61;
-    color: #fff;
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
-  100% {
-    text-shadow:
-      0 0 15px #ff9e9e,
-      0 0 30px #ff9e9e,
-      0 0 40px #ff6f61,
-      0 0 60px #ff6f61;
-    color: #ffdadb;
+  50% {
+    transform: translateY(15px);
   }
 }
 
-/* ظرف الرسالة */
-#envelope {
+/* الظرف */
+.wrapper {
+  width: 300px;
+  height: 400px;
   position: relative;
-  width: 350px;
-  height: 220px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  background-color: #d9534f;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-  margin-bottom: 50px;
-  cursor: pointer;
+  margin-bottom: 40px;
+  perspective: 1200px;
 }
+
+/* تغليف الظرف */
 .envlope-wrapper {
   position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
 }
 
-/* غلاف الظرف */
-.front {
-  position: absolute;
-  width: 0;
-  height: 0;
-  z-index: 3;
+/* حالة فتح الظرف */
+.envlope-wrapper.open {
+  transform: rotateX(-110deg);
 }
-.flap {
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-bottom: 82px solid transparent;
-  border-top: 98px solid #d9534f;
-  transform-origin: top;
-  pointer-events: none;
-  transition: transform 0.4s ease, z-index 0.6s;
+
+/* مقدمة الظرف - الفلاب */
+.front.flap {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(135deg, #d94c4c, #ff7676);
+  border-radius: 12px 12px 0 0;
+  top: 0;
+  left: 0;
+  box-shadow: 0 3px 15px rgba(255, 118, 118, 0.8);
+  transform-origin: bottom center;
+  z-index: 3;
+  backface-visibility: hidden;
 }
 
 /* جيب الظرف */
-.pocket {
-  border-left: 140px solid #f5a3a2;
-  border-right: 140px solid #f5a3a2;
-  border-bottom: 90px solid #ff6f61;
-  border-top: 90px solid transparent;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-/* محتوى الرسالة داخل الظرف */
-.letter {
-  position: relative;
-  background-color: #fff;
-  width: 90%;
-  margin: 0 auto;
-  height: 90%;
-  top: 5%;
-  border-radius: 6px;
-  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.2);
-  color: #d9534f;
-  padding: 15px 20px;
-  font-weight: 600;
-  font-size: 1.3rem;
-  text-align: center;
-  line-height: 1.6;
-  animation: glowingText 3s ease-in-out infinite alternate;
-}
-
-/* تنسيق الأسطر داخل الرسالة */
-.words {
+.front.pocket {
   position: absolute;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(135deg, #ff9999, #ffbaba);
+  border-radius: 0 0 12px 12px;
+  bottom: 0;
+  left: 0;
+  box-shadow: inset 0 0 10px rgba(255, 118, 118, 0.6);
+  z-index: 2;
+  backface-visibility: hidden;
+}
+
+/* الورقة داخل الظرف */
+.letter {
+  position: absolute;
+  top: 10%;
   left: 10%;
   width: 80%;
-  background-color: #ffe6e6;
+  height: 80%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(217, 76, 76, 0.7);
+  padding: 15px 20px;
+  z-index: 4;
+  color: #d94c4c;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  user-select: none;
+  /* نص بينور */
+  text-shadow:
+    0 0 8px #d94c4c,
+    0 0 12px #ff7676,
+    0 0 20px #ff7676;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+.words {
+  margin-bottom: 8px;
 }
 
 .words.line1 {
-  top: 10%;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 900;
   margin-bottom: 10px;
-  color: #b22222;
-  text-shadow: 0 0 5px #b22222;
-}
-.words.line2 { top: 35%; }
-.words.line3 { top: 55%; }
-.words.line4 { top: 75%; }
-
-/* تأثير نور للنص داخل الظرف */
-@keyframes glowingText {
-  0% {
-    color: #d9534f;
-    text-shadow:
-      0 0 5px #d9534f,
-      0 0 10px #ff6f61;
-  }
-  100% {
-    color: #ff6f61;
-    text-shadow:
-      0 0 15px #ff6f61,
-      0 0 25px #ff9e9e;
-  }
 }
 
-/* قلوب الطيران */
+.words.line2 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.words.line3 {
+  font-size: 1.5rem;
+  margin-top: 12px;
+}
+
+/* القلوب المتحركة أسفل الظرف */
 .hearts {
   position: absolute;
-  top: 90px;
-  left: 0;
-  right: 0;
-  z-index: 2;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 5;
+  user-select: none;
 }
+
 .heart {
-  position: absolute;
-  bottom: 0;
-  right: 10%;
-  pointer-events: none;
+  width: 25px;
+  height: 25px;
+  background: #ff5e57;
+  clip-path: polygon(
+    50% 0%,
+    61% 8%,
+    68% 20%,
+    68% 40%,
+    50% 60%,
+    32% 40%,
+    32% 20%,
+    39% 8%
+  );
+  animation: pulse 2s infinite;
+  opacity: 0.85;
 }
-.heart:before,
-.heart:after {
-  position: absolute;
-  content: "";
-  left: 50px;
-  top: 0;
-  width: 50px;
-  height: 80px;
-  background: #e60073;
-  border-radius: 50px 50px 0 0;
-  transform: rotate(-45deg);
-  transform-origin: 0 100%;
+
+.heart.a1 {
+  animation-delay: 0s;
 }
-.heart:after {
-  left: 0;
-  transform: rotate(45deg);
-  transform-origin: 100% 100%;
+.heart.a2 {
+  animation-delay: 0.3s;
 }
-.close .heart {
-  opacity: 0;
-  animation: none;
+.heart.a3 {
+  animation-delay: 0.6s;
 }
-.a1 {
-  left: 20%;
-  transform: scale(0.6);
-  opacity: 1;
-  animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
-  animation-fill-mode: forwards;
-  animation-delay: 0.7s;
-}
-.a2 {
-  left: 55%;
-  transform: scale(1);
-  opacity: 1;
-  animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
-  animation-fill-mode: forwards;
-  animation-delay: 0.7s;
-}
-.a3 {
-  left: 10%;
-  transform: scale(0.8);
-  opacity: 1;
-  animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
-  animation-fill-mode: forwards;
-  animation-delay: 0.7s;
-}
-@keyframes slideUp {
-  0% { top: 0; }
-  100% { top: -600px; }
-}
-@keyframes sideSway {
-  0% { margin-left: 0; }
-  100% { margin-left: 50px; }
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
 }
 
 /* الكروت الدوارة */
 .inner {
   --w: 150px;
-  --h: 225px;
-  --translateZ: calc((var(--w) + var(--h)));
+  --h: 220px;
+  --translateZ: calc((var(--w) + var(--h)) + 20px);
   --rotateX: -15deg;
-  --perspective: 1000px;
+  --perspective: 1200px;
   position: relative;
-  width: var(--w);
-  height: var(--h);
-  margin-top: 20px;
+  width: 100%;
+  height: 250px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transform-style: preserve-3d;
   transform: perspective(var(--perspective));
   animation: rotating 20s linear infinite;
+  user-select: none;
 }
+
 @keyframes rotating {
   from {
     transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0);
@@ -248,6 +256,7 @@ body {
     transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn);
   }
 }
+
 .card {
   position: absolute;
   border: 2px solid rgba(var(--color-card));
@@ -255,10 +264,42 @@ body {
   overflow: hidden;
   inset: 0;
   transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ));
+  cursor: default;
 }
+
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #0000 radial-gradient(circle, rgba(var(--color-card),0.2) 0%, rgba(var(--color-card),0.6) 80%, rgba(var(--color-card),0.9) 100%);
+  background: #0000 radial-gradient(circle,
+    rgba(var(--color-card), 0.2) 0%,
+    rgba(var(--color-card), 0.6) 80%,
+    rgba(var(--color-card), 0.9) 100%);
+}
+
+/* اخفاء النصوص افتراضياً داخل الظرف */
+.envlope-wrapper.close .letter {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.6s, opacity 0.6s ease;
+}
+
+/* اظهار النص عند فتح الظرف */
+.envlope-wrapper.open .letter {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+/* حركة الفلاب عند فتح الظرف */
+.envlope-wrapper.open .front.flap {
+  transform: rotateX(-110deg);
+  transition: transform 0.8s ease;
+}
+
+/* ايقاف دوران الكروت عند الفتح */
+.envlope-wrapper.open ~ .inner {
+  animation-play-state: paused;
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
 }
