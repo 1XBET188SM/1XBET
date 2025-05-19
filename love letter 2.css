@@ -1,8 +1,8 @@
-/* خلفية داكنة */
+/* خلفية داكنة وشكل الصفحة */
 body {
   margin: 0;
   height: 100vh;
-  background-color: #1a1a2e; /* لون داكن */
+  background-color: #1a1a2e;
   color: white;
   font-family: "Dancing Script", cursive;
   display: flex;
@@ -13,11 +13,10 @@ body {
   padding: 20px;
 }
 
-/* النص فوق الظرف */
+/* النص المتحرك فوق الظرف */
 .header-text {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  position: relative;
   color: #fff;
   text-shadow:
     0 0 5px #ff6f61,
@@ -31,7 +30,7 @@ body {
   text-transform: uppercase;
 }
 
-/* إيموجي اليد */
+/* إيموجي اليد تحت النص */
 .hand-emoji {
   font-size: 3rem;
   animation: glowing 2.5s ease-in-out infinite alternate;
@@ -39,7 +38,7 @@ body {
   user-select: none;
 }
 
-/* تأثير نور متغير */
+/* تأثير النور المتغير */
 @keyframes glowing {
   0% {
     text-shadow:
@@ -59,10 +58,10 @@ body {
   }
 }
 
-/* الظرف */
+/* ظرف الرسالة */
 #envelope {
   position: relative;
-  width: 350px; /* كبر الظرف */
+  width: 350px;
   height: 220px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -71,47 +70,75 @@ body {
   margin-bottom: 50px;
   cursor: pointer;
 }
+.envlope-wrapper {
+  position: relative;
+}
 
-/* تحسينات داخل الظرف */
+/* غلاف الظرف */
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+.flap {
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 82px solid transparent;
+  border-top: 98px solid #d9534f;
+  transform-origin: top;
+  pointer-events: none;
+  transition: transform 0.4s ease, z-index 0.6s;
+}
+
+/* جيب الظرف */
+.pocket {
+  border-left: 140px solid #f5a3a2;
+  border-right: 140px solid #f5a3a2;
+  border-bottom: 90px solid #ff6f61;
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* محتوى الرسالة داخل الظرف */
 .letter {
   position: relative;
   background-color: #fff;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   height: 90%;
   top: 5%;
   border-radius: 6px;
   box-shadow: 0 2px 26px rgba(0, 0, 0, 0.2);
   color: #d9534f;
   padding: 15px 20px;
-  font-family: "Dancing Script", cursive;
   font-weight: 600;
   font-size: 1.3rem;
   text-align: center;
   line-height: 1.6;
-  user-select: none;
   animation: glowingText 3s ease-in-out infinite alternate;
 }
 
-/* نص داخل الظرف مفصل */
-.letter .line1 {
+/* تنسيق الأسطر داخل الرسالة */
+.words {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  background-color: #ffe6e6;
+}
+
+.words.line1 {
+  top: 10%;
   font-size: 1rem;
   font-weight: 900;
   margin-bottom: 10px;
   color: #b22222;
   text-shadow: 0 0 5px #b22222;
 }
-
-.letter .line2 {
-  margin-bottom: 8px;
-}
-
-.letter .hearts-emoji {
-  font-size: 1.6rem;
-  margin-top: 10px;
-  user-select: none;
-}
+.words.line2 { top: 35%; }
+.words.line3 { top: 55%; }
+.words.line4 { top: 75%; }
 
 /* تأثير نور للنص داخل الظرف */
 @keyframes glowingText {
@@ -129,54 +156,109 @@ body {
   }
 }
 
-/* كروت Uiverse.io تحت الظرف */
+/* قلوب الطيران */
+.hearts {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.heart {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  pointer-events: none;
+}
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: 50px;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: #e60073;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+.close .heart {
+  opacity: 0;
+  animation: none;
+}
+.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  opacity: 1;
+  animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+.a2 {
+  left: 55%;
+  transform: scale(1);
+  opacity: 1;
+  animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  opacity: 1;
+  animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+@keyframes slideUp {
+  0% { top: 0; }
+  100% { top: -600px; }
+}
+@keyframes sideSway {
+  0% { margin-left: 0; }
+  100% { margin-left: 50px; }
+}
+
+/* الكروت الدوارة */
 .inner {
   --w: 150px;
   --h: 225px;
-  --translateZ: calc((var(--w) + var(--h)) + 0px);
+  --translateZ: calc((var(--w) + var(--h)));
   --rotateX: -15deg;
   --perspective: 1000px;
   position: relative;
   width: var(--w);
   height: var(--h);
-  margin-top: 0;
-  margin-bottom: 10px;
-  z-index: 2;
+  margin-top: 20px;
   transform-style: preserve-3d;
   transform: perspective(var(--perspective));
   animation: rotating 20s linear infinite;
 }
-
 @keyframes rotating {
   from {
-    transform: perspective(var(--perspective)) rotateX(var(--rotateX))
-      rotateY(0);
+    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0);
   }
   to {
-    transform: perspective(var(--perspective)) rotateX(var(--rotateX))
-      rotateY(1turn);
+    transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn);
   }
 }
-
 .card {
   position: absolute;
   border: 2px solid rgba(var(--color-card));
   border-radius: 12px;
   overflow: hidden;
   inset: 0;
-  transform: rotateY(calc((360deg / var(--quantity)) * var(--index)))
-    translateZ(var(--translateZ));
+  transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ));
 }
-
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #0000
-    radial-gradient(
-      circle,
-      rgba(var(--color-card), 0.2) 0%,
-      rgba(var(--color-card), 0.6) 80%,
-      rgba(var(--color-card), 0.9) 100%
-    );
+  background: #0000 radial-gradient(circle, rgba(var(--color-card),0.2) 0%, rgba(var(--color-card),0.6) 80%, rgba(var(--color-card),0.9) 100%);
 }
