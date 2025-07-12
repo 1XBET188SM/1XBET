@@ -2,52 +2,49 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>إدخالa الكود</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>إدخال الكود</title>
+  <!-- تعطيل التكبير -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
   <style>
-    html, body {
-      touch-action: manipulation;
-      -ms-touch-action: manipulation;
-      overscroll-behavior: none;
-      -webkit-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-      margin: 0;
-      padding: 0;
+    body {
       background-color: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      user-select: none;
       position: relative;
     }
 
-    /* زر الرجوع فوق اليمين */
+    /* زر الرجوع أعلى اليمين */
     .back-button {
       position: fixed;
       top: 15px;
       right: 15px;
-      background: #6c3dff;
-      border: none;
-      color: #fff;
-      padding: 10px 15px;
-      font-size: 16px;
-      border-radius: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid #6c3dff;
+      border-radius: 25px;
+      color: #6c3dff;
+      font-size: 18px;
+      padding: 8px 16px;
       cursor: pointer;
+      transition: background 0.3s, color 0.3s;
       z-index: 10000;
-      transition: background 0.3s, transform 0.2s;
       user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-
     .back-button:hover {
-      background: #8a5fff;
-      transform: scale(1.05);
+      background: #6c3dff;
+      color: #fff;
+      box-shadow: 0 0 10px #6c3dff;
     }
-
     .back-button:active {
       transform: scale(0.95);
     }
@@ -106,6 +103,8 @@
       padding: 0 12px;
       transition: box-shadow 0.3s, border 0.3s;
       font-size: 18px;
+      /* ترتيب: المحتوى من اليمين لليسار داخل الإدخال */
+      direction: rtl;
     }
 
     .input-group input {
@@ -116,6 +115,8 @@
       padding: 14px;
       font-size: 16px;
       outline: none;
+      direction: ltr; /* لإدخال الرقم/كلمة المرور من اليسار لليمين */
+      text-align: left;
     }
 
     .input-group:focus-within {
@@ -123,11 +124,11 @@
       border: 1px solid #007bff;
     }
 
-    /* تحريك الايقونات يمين */
     .input-group .icon {
       font-size: 20px;
-      margin-left: 15px;
+      margin-right: 10px; /* خلي الأيقونة تبتعد عن النص يمين */
       animation: pulse 1.5s infinite;
+      user-select: none;
     }
 
     @keyframes pulse {
@@ -167,6 +168,7 @@
       cursor: pointer;
       margin-top: 20px;
       transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+      user-select: none;
     }
 
     .start-button:hover {
@@ -225,7 +227,7 @@
   </style>
 </head>
 <body>
-  <!-- زر الرجوع -->
+  <!-- زر رجوع أعلى اليمين -->
   <button class="back-button" aria-label="رجوع">⬅️ رجوع</button>
 
   <div class="avatar">
@@ -241,38 +243,23 @@
     </div>
 
     <div class="input-group">
-      <input type="password" inputmode="text" placeholder="كلمة المرور" />
+      <input type="password" inputmode="text" placeholder="كلمة المرور" autocomplete="off" />
       <span class="icon">🔑</span>
     </div>
 
     <div class="separator"></div>
 
     <div class="input-group">
-      <input type="tel" inputmode="numeric" placeholder="رقم الحساب (ID)" />
+      <input type="tel" inputmode="numeric" placeholder="رقم الحساب (ID)" autocomplete="off" />
       <span class="icon">🆔</span>
     </div>
 
-    <button class="start-button">🚀 بدء اللعبة</button>
+    <button class="start-button" type="button">🚀 بدء اللعبة</button>
   </div>
 
-  <button class="code-button">📩 اضغط هنا لاستلام كود التفعيل</button>
+  <button class="code-button" type="button">📩 اضغط هنا لاستلام كود التفعيل</button>
 
   <script>
-    // منع التكبير بنقرة مزدوجة ومنع gesturestart (pinch zoom)
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(event) {
-      const now = (new Date()).getTime();
-      if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-      }
-      lastTouchEnd = now;
-    }, false);
-
-    document.addEventListener('gesturestart', function(e) {
-      e.preventDefault();
-    });
-
-    // تعيين اسم اللعبة حسب الرابط
     const params = new URLSearchParams(window.location.search);
     const game = params.get("game");
     const gameName = document.getElementById("gameName");
@@ -285,15 +272,17 @@
       gameName.innerHTML = '🎮 <span>لعبة</span>';
     }
 
-    // زر كود التفعيل يوجه مباشرة للرابط بدون فتح موقع جديد (في نفس الصفحة)
-    document.querySelector(".code-button").addEventListener("click", () => {
-      window.location.href = "https://t.me/romabet222";
+    // زر رابط التفعيل - يفتح في نافذة جديدة
+    document.querySelector(".code-button").addEventListener("click", (e) => {
+      e.preventDefault();
+      window.open("https://t.me/romabet222", "_blank", "noopener,noreferrer");
     });
 
-    // زر بدء اللعبة مع عرض تحميل والتحقق من المدخلات
+    // زر بدء اللعبة
     document.querySelector(".start-button").addEventListener("click", () => {
-      const password = document.querySelectorAll(".input-group input")[0].value.trim();
-      const id = document.querySelectorAll(".input-group input")[1].value.trim();
+      const inputs = document.querySelectorAll(".input-group input");
+      const password = inputs[0].value.trim();
+      const id = inputs[1].value.trim();
 
       const loadingOverlay = document.createElement("div");
       loadingOverlay.style.position = "fixed";
@@ -347,15 +336,25 @@
         } else {
           alert("اللعبة غير معروفة");
         }
-
       }, waitTime);
     });
 
-    // زر رجوع الصفحة يرجع للصفحة السابقة في المتصفح
+    // زر الرجوع
     document.querySelector(".back-button").addEventListener("click", () => {
-      history.back();
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        // لو ما فيش صفحة سابقة، نغلق الصفحة (لو ممكن)
+        // أو نوجه المستخدم لرابط آخر
+        window.location.href = "about:blank"; // أو غيره حسب الحاجة
+      }
     });
 
+    // للتأكد من عدم تكبير الصفحة (إذا بعض المتصفحات تسمح)
+    // مع أنه meta viewport بيمنعها بشكل أساسي
+    document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+    });
   </script>
 </body>
 </html>
