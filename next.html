@@ -2,25 +2,27 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <title>إدخال الكود</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>إدخال الكوند</title>
   <style>
     html, body {
       touch-action: manipulation;
       -ms-touch-action: manipulation;
       overscroll-behavior: none;
-    }
-    body {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      margin: 0;
+      padding: 0;
       background-color: #000;
       color: #fff;
       font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      user-select: none;
     }
 
     .avatar {
@@ -94,9 +96,10 @@
       border: 1px solid #007bff;
     }
 
+    /* تحريك الايقونات يمين */
     .input-group .icon {
       font-size: 20px;
-      margin-left: 10px;
+      margin-left: 15px; /* زودت المسافة من اليسار ليذهب يميناً */
       animation: pulse 1.5s infinite;
     }
 
@@ -162,7 +165,6 @@
       max-width: 250px;
       text-align: center;
       transition: background 0.3s, transform 0.2s;
-      user-select: none;
     }
 
     .code-button:hover {
@@ -222,9 +224,24 @@
     <button class="start-button">🚀 بدء اللعبة</button>
   </div>
 
-  <button class="code-button" id="codeBtn">📩 اضغط هنا لاستلام كود التفعيل</button>
+  <button class="code-button">📩 اضغط هنا لاستلام كود التفعيل</button>
 
   <script>
+    // منع التكبير بنقرة مزدوجة ومنع gesturestart (pinch zoom)
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+    });
+
+    // تعيين اسم اللعبة حسب الرابط
     const params = new URLSearchParams(window.location.search);
     const game = params.get("game");
     const gameName = document.getElementById("gameName");
@@ -237,11 +254,12 @@
       gameName.innerHTML = '🎮 <span>لعبة</span>';
     }
 
-    // توجيه مباشر بدون فتح نافذة جديدة أو إعادة تحميل
-    document.getElementById("codeBtn").addEventListener("click", () => {
+    // زر كود التفعيل يوجه مباشرة للرابط بدون فتح موقع جديد
+    document.querySelector(".code-button").addEventListener("click", () => {
       window.location.href = "https://t.me/romabet222";
     });
 
+    // زر بدء اللعبة مع عرض تحميل والتحقق من المدخلات
     document.querySelector(".start-button").addEventListener("click", () => {
       const password = document.querySelectorAll(".input-group input")[0].value.trim();
       const id = document.querySelectorAll(".input-group input")[1].value.trim();
@@ -298,7 +316,13 @@
         } else {
           alert("اللعبة غير معروفة");
         }
+
       }, waitTime);
+    });
+
+    // رجوع صفحة الموبايل يرجع للصفحة السابقة (متصفحياً)
+    window.addEventListener('popstate', function(event) {
+      history.back();
     });
   </script>
 </body>
