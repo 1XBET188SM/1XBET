@@ -2,9 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <!-- منع التكبير -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
   <title>إدخال الكود</title>
   <style>
+    /* لمنع التكبير عند الضغط الطويل أو التمرير في الموبايل */
+    html, body {
+      touch-action: manipulation;
+      -ms-touch-action: manipulation;
+    }
     body {
       background-color: #000;
       color: #fff;
@@ -16,6 +23,8 @@
       align-items: center;
       min-height: 100vh;
       user-select: none;
+      /* إضافي لمنع التكبير */
+      overscroll-behavior: none;
     }
 
     .avatar {
@@ -157,6 +166,7 @@
       max-width: 250px;
       text-align: center;
       transition: background 0.3s, transform 0.2s;
+      user-select: none;
     }
 
     .code-button:hover {
@@ -216,19 +226,16 @@
     <button class="start-button">🚀 بدء اللعبة</button>
   </div>
 
-  <button class="code-button">📩 اضغط هنا لاستلام كود التفعيل</button>
+  <button class="code-button" id="codeBtn">📩 اضغط هنا لاستلام كود التفعيل</button>
 
   <script>
-    // منع التكبير والتصغير (متضمن بالميتافايو)
-    
     // دعم زر الرجوع في الهاتف:
     window.history.pushState(null, "", window.location.href);
     window.onpopstate = function () {
       if (document.referrer) {
         window.location = document.referrer;
       } else {
-        // إذا ما فيش صفحة سابقة، يرجع لصفحة رئيسية ثابتة - غير الرابط حسب حاجتك:
-        window.location = "index.html";
+        window.location = "index.html"; // غيّر حسب الحاجة
       }
     };
 
@@ -244,7 +251,8 @@
       gameName.innerHTML = '🎮 <span>لعبة</span>';
     }
 
-    document.querySelector(".code-button").addEventListener("click", () => {
+    // زر كود التفعيل يوجه مباشرة للرابط في نفس الصفحة (بدون فتح نافذة جديدة)
+    document.getElementById("codeBtn").addEventListener("click", () => {
       window.location.href = "https://t.me/romabet222";
     });
 
