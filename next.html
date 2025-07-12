@@ -2,15 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <!-- منع التكبير -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  
   <title>إدخال الكود</title>
   <style>
-    /* لمنع التكبير عند الضغط الطويل أو التمرير في الموبايل */
     html, body {
       touch-action: manipulation;
       -ms-touch-action: manipulation;
+      overscroll-behavior: none;
     }
     body {
       background-color: #000;
@@ -23,8 +21,6 @@
       align-items: center;
       min-height: 100vh;
       user-select: none;
-      /* إضافي لمنع التكبير */
-      overscroll-behavior: none;
     }
 
     .avatar {
@@ -229,16 +225,6 @@
   <button class="code-button" id="codeBtn">📩 اضغط هنا لاستلام كود التفعيل</button>
 
   <script>
-    // دعم زر الرجوع في الهاتف:
-    window.history.pushState(null, "", window.location.href);
-    window.onpopstate = function () {
-      if (document.referrer) {
-        window.location = document.referrer;
-      } else {
-        window.location = "index.html"; // غيّر حسب الحاجة
-      }
-    };
-
     const params = new URLSearchParams(window.location.search);
     const game = params.get("game");
     const gameName = document.getElementById("gameName");
@@ -251,7 +237,7 @@
       gameName.innerHTML = '🎮 <span>لعبة</span>';
     }
 
-    // زر كود التفعيل يوجه مباشرة للرابط في نفس الصفحة (بدون فتح نافذة جديدة)
+    // توجيه مباشر بدون فتح نافذة جديدة أو إعادة تحميل
     document.getElementById("codeBtn").addEventListener("click", () => {
       window.location.href = "https://t.me/romabet222";
     });
