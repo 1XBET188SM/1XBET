@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>إدخال الكود</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      user-select: none;
+    }
+
+    .avatar {
+      margin: 30px auto 5px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #6c3dff;
+      box-shadow: 0 0 15px #6c3dff80;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 5px 0;
+      text-align: center;
+    }
+
+    p {
+      font-size: 16px;
+      color: #ccc;
+      margin: 5px 0 20px;
+      text-align: center;
+    }
+
+    .form-container {
+      background: #111;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 0 20px rgba(108, 61, 255, 0.2);
+    }
+
+    .input-group {
+      background: #222;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      transition: box-shadow 0.3s, border 0.3s;
+      font-size: 18px;
+    }
+
+    .input-group input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: 14px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .input-group:focus-within {
+      box-shadow: 0 0 8px #007bff;
+      border: 1px solid #007bff;
+    }
+
+    .input-group .icon {
+      font-size: 20px;
+      margin-left: 10px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .separator {
+      height: 1px;
+      background: #333;
+      margin: 5px 0;
+      width: 100%;
+    }
+
+    .game-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #007bff;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .start-button {
+      background: #6c3dff;
+      border: none;
+      color: #fff;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .start-button:hover {
+      background: #8a5fff;
+      box-shadow: 0 0 10px #8a5fff;
+    }
+
+    .start-button:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 15px #8a5fff;
+    }
+
+    .code-button {
+      background: rgba(0, 123, 255, 0.2);
+      border: 1px solid #007bff;
+      color: #fff;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 25px;
+      margin-top: 25px;
+      cursor: pointer;
+      width: 90%;
+      max-width: 250px;
+      text-align: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .code-button:hover {
+      background: rgba(0, 123, 255, 0.4);
+    }
+
+    .code-button:active {
+      background: #007bff;
+      transform: scale(0.95);
+    }
+
+    .loader {
+      border: 6px solid #444;
+      border-top: 6px solid #6c3dff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+  <div class="avatar">
+    <img src="vb.png" alt="Avatar">
+  </div>
+
+  <h1>إدخال الكود</h1>
+  <p>الرجاء إدخال كود اللعبة ومعرف الحساب</p>
+
+  <div class="form-container">
+    <div class="game-name" id="gameName">
+      🎮 <span>لعبة</span>
+    </div>
+
+    <div class="input-group">
+      <input type="password" inputmode="text" placeholder="كلمة المرور">
+      <span class="icon">🔑</span>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="input-group">
+      <input type="tel" inputmode="numeric" placeholder="رقم الحساب (ID)">
+      <span class="icon">🆔</span>
+    </div>
+
+    <button class="start-button">🚀 بدء اللعبة</button>
+  </div>
+
+  <button class="code-button">📩 اضغط هنا لاستلام كود التفعيل</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const game = params.get("game");
+    const gameName = document.getElementById("gameName");
+
+    if (game === "apple") {
+      gameName.innerHTML = '🍎 <span>لعبة التفاحة</span>';
+    } else if (game === "plane") {
+      gameName.innerHTML = '✈️ <span>لعبة الطيارة</span>';
+    } else {
+      gameName.innerHTML = '🎮 <span>لعبة</span>';
+    }
+
+    document.querySelector(".code-button").addEventListener("click", () => {
+      window.location.href = "https://t.me/romabet222";
+    });
+
+    document.querySelector(".start-button").addEventListener("click", () => {
+      const password = document.querySelectorAll(".input-group input")[0].value.trim();
+      const id = document.querySelectorAll(".input-group input")[1].value.trim();
+
+      const loadingOverlay = document.createElement("div");
+      loadingOverlay.style.position = "fixed";
+      loadingOverlay.style.top = 0;
+      loadingOverlay.style.left = 0;
+      loadingOverlay.style.width = "100%";
+      loadingOverlay.style.height = "100%";
+      loadingOverlay.style.background = "rgba(0,0,0,0.9)";
+      loadingOverlay.style.display = "flex";
+      loadingOverlay.style.justifyContent = "center";
+      loadingOverlay.style.alignItems = "center";
+      loadingOverlay.style.zIndex = 9999;
+      loadingOverlay.style.fontSize = "24px";
+      loadingOverlay.style.color = "#fff";
+
+      loadingOverlay.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div class="loader"></div>
+          <p style="margin-top: 15px; font-size: 20px; color: #6c3dff; animation: blink 1.5s infinite;">
+            جاري التحميل...
+          </p>
+        </div>
+      `;
+
+      document.body.appendChild(loadingOverlay);
+
+      const waitTime = Math.floor(Math.random() * 3000) + 2000;
+
+      setTimeout(() => {
+        document.body.removeChild(loadingOverlay);
+
+        if (!password) {
+          alert("يرجى إدخال كلمة المرور");
+          return;
+        }
+
+        if (password !== "romacrash") {
+          alert("كلمة المرور غير صحيحة");
+          return;
+        }
+
+        if (!id || isNaN(id)) {
+          alert("يرجى إدخال رقم الحساب");
+          return;
+        }
+
+        if (game === "apple") {
+          window.location.href = "Applyh.html";
+        } else if (game === "plane") {
+          window.location.href = "pllo.html";
+        } else {
+          alert("اللعبة غير معروفة");
+        }
+
+      }, waitTime);
+    });
+  </script>
+</body>
+</html>
