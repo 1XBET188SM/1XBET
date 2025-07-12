@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>اختيار اللعبة</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -12,9 +16,18 @@
       font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
       min-height: 100vh;
       user-select: none;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      flex-grow: 1;
     }
 
     .avatar {
@@ -37,6 +50,7 @@
       font-size: 22px;
       margin-bottom: 20px;
       font-weight: bold;
+      text-align: center;
     }
 
     .game-card {
@@ -87,6 +101,14 @@
       object-fit: cover;
     }
 
+    .buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
     .btn {
       padding: 14px;
       border: none;
@@ -96,7 +118,7 @@
       cursor: pointer;
       width: 90%;
       max-width: 300px;
-      margin-top: 15px;
+      margin: 10px 0;
       transition: all 0.3s ease;
     }
 
@@ -125,30 +147,34 @@
 </head>
 <body>
 
-  <div class="avatar">
-    <img src="vb.png" alt="avatar">
-  </div>
-
-  <h2>اختر لعبتك المفضلة</h2>
-
-  <div class="game-card" onclick="selectGame('apple', this)">
-    <div class="game-info">
-      <div class="game-title">🍎 لعبة التفاحة</div>
-      <div class="game-desc">أكثر من 1000 مستوى آمن</div>
+  <div class="container">
+    <div class="avatar">
+      <img src="vb.png" alt="avatar">
     </div>
-    <img src="App.jpeg" alt="apple game">
-  </div>
 
-  <div class="game-card" onclick="selectGame('plane', this)">
-    <div class="game-info">
-      <div class="game-title">✈️ لعبة الطيارة</div>
-      <div class="game-desc">تحدي الطيران والسرعة</div>
+    <h2>اختر لعبتك المفضلة</h2>
+
+    <div class="game-card" onclick="selectGame('apple', this)">
+      <div class="game-info">
+        <div class="game-title">🍎 لعبة التفاحة</div>
+        <div class="game-desc">أكثر من 1000 مستوى آمن</div>
+      </div>
+      <img src="App.jpeg" alt="apple game">
     </div>
-    <img src="Pl.jpeg" alt="plane game">
+
+    <div class="game-card" onclick="selectGame('plane', this)">
+      <div class="game-info">
+        <div class="game-title">✈️ لعبة الطيارة</div>
+        <div class="game-desc">تحدي الطيران والسرعة</div>
+      </div>
+      <img src="Pl.jpeg" alt="plane game">
+    </div>
   </div>
 
-  <button class="btn btn-play" onclick="startGame()">next</button>
-  <button class="btn btn-telegram" onclick="goToTelegram()">قناة التلجرام الخاصة بنا</button>
+  <div class="buttons">
+    <button class="btn btn-play" onclick="startGame()">التالي</button>
+    <button class="btn btn-telegram" onclick="goToTelegram()">قناة التلجرام الخاصة بنا</button>
+  </div>
 
   <script>
     let selectedGame = null;
