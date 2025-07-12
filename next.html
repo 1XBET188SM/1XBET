@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>إدخال الكود</title>
+  <title>إدخال ههالكود</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <style>
     body {
@@ -19,36 +19,31 @@
       position: relative;
     }
 
-    /* زر الرجوع فوق اليمين */
+    /* زر الرجوع في أعلى اليمين */
     .back-button {
       position: fixed;
       top: 15px;
       right: 15px;
-      background: #6c3dff;
+      background: rgba(108, 61, 255, 0.9);
       border: none;
-      color: #fff;
+      color: white;
       padding: 10px 16px;
-      font-size: 16px;
       border-radius: 25px;
+      font-size: 18px;
       cursor: pointer;
-      box-shadow: 0 0 10px #6c3dffaa;
-      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 0 10px #6c3dff;
       z-index: 10000;
-      user-select: none;
+      transition: background 0.3s ease;
     }
-
     .back-button:hover {
       background: #8a5fff;
-      box-shadow: 0 0 15px #8a5fff;
     }
-
     .back-button:active {
       transform: scale(0.95);
-      box-shadow: 0 0 20px #8a5fff;
     }
 
     .avatar {
-      margin: 60px auto 5px;
+      margin: 60px auto 5px; /* زيادة المسافة ليتناسب مع زر الرجوع */
       width: 120px;
       height: 120px;
       border-radius: 50%;
@@ -93,20 +88,6 @@
       box-shadow: 0 0 20px rgba(108, 61, 255, 0.2);
     }
 
-    .game-name {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #007bff;
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-    }
-
     .input-group {
       background: #222;
       border-radius: 8px;
@@ -115,7 +96,6 @@
       padding: 0 12px;
       transition: box-shadow 0.3s, border 0.3s;
       font-size: 18px;
-      direction: rtl;
     }
 
     .input-group input {
@@ -126,7 +106,6 @@
       padding: 14px;
       font-size: 16px;
       outline: none;
-      text-align: right;
     }
 
     .input-group:focus-within {
@@ -134,12 +113,10 @@
       border: 1px solid #007bff;
     }
 
-    /* الأيقونة على يمين الحقل مع مسافة مناسبة */
     .input-group .icon {
       font-size: 20px;
-      margin-right: 10px;
+      margin-left: 10px;
       animation: pulse 1.5s infinite;
-      user-select: none;
     }
 
     @keyframes pulse {
@@ -155,7 +132,20 @@
       width: 100%;
     }
 
-    /* زر بدء اللعبة */
+    .game-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #007bff;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+
     .start-button {
       background: #6c3dff;
       border: none;
@@ -178,17 +168,17 @@
       box-shadow: 0 0 15px #8a5fff;
     }
 
-    /* زر الرابط الخارجي */
     .code-link {
-      display: inline-block;
+      display: block;
       background: rgba(0, 123, 255, 0.2);
       border: 1px solid #007bff;
       color: #fff;
-      padding: 12px 20px;
+      padding: 12px;
       font-size: 16px;
       border-radius: 25px;
-      margin: 25px auto 40px;
+      margin: 25px auto 0;
       cursor: pointer;
+      width: 90%;
       max-width: 250px;
       text-align: center;
       text-decoration: none;
@@ -226,7 +216,7 @@
   </style>
 </head>
 <body>
-  <!-- زر رجوع -->
+  <!-- زر الرجوع -->
   <button class="back-button" aria-label="رجوع">⬅️ رجوع</button>
 
   <div class="avatar">
@@ -242,26 +232,26 @@
     </div>
 
     <div class="input-group">
-      <input type="password" inputmode="text" placeholder="كلمة المرور" autocomplete="off" />
+      <input type="password" inputmode="text" placeholder="كلمة المرور" />
       <span class="icon">🔑</span>
     </div>
 
     <div class="separator"></div>
 
     <div class="input-group">
-      <input type="tel" inputmode="numeric" placeholder="رقم الحساب (ID)" autocomplete="off" />
+      <input type="tel" inputmode="numeric" placeholder="رقم الحساب (ID)" />
       <span class="icon">🆔</span>
     </div>
 
     <button class="start-button">🚀 بدء اللعبة</button>
   </div>
 
-  <a href="https://t.me/romabet222" target="_blank" rel="noopener noreferrer" class="code-link" id="codeLink">
+  <a href="https://t.me/romabet222" target="_blank" rel="noopener noreferrer" class="code-link">
     📩 اضغط هنا لاستلام كود التفعيل
   </a>
 
   <script>
-    // تعيين اسم اللعبة بناءً على رابط الصفحة
+    // تحديث اسم اللعبة حسب الباراميتر
     const params = new URLSearchParams(window.location.search);
     const game = params.get("game");
     const gameName = document.getElementById("gameName");
@@ -274,21 +264,20 @@
       gameName.innerHTML = '🎮 <span>لعبة</span>';
     }
 
-    // زر رجوع
+    // زر الرجوع
     document.querySelector(".back-button").addEventListener("click", () => {
       if (window.history.length > 1) {
         window.history.back();
       } else {
-        // لو مفيش صفحة سابقة يقدر يعمل رجوع لصفحة محددة أو يطفي
-        window.location.href = "index.html"; // عدل حسب الصفحة الأساسية عندك
+        // لو مفيش صفحة سابقة يمكن إعادة التوجيه لصفحة رئيسية
+        window.location.href = "index.html"; 
       }
     });
 
     // زر بدء اللعبة
     document.querySelector(".start-button").addEventListener("click", () => {
-      const inputs = document.querySelectorAll(".input-group input");
-      const password = inputs[0].value.trim();
-      const id = inputs[1].value.trim();
+      const password = document.querySelectorAll(".input-group input")[0].value.trim();
+      const id = document.querySelectorAll(".input-group input")[1].value.trim();
 
       const loadingOverlay = document.createElement("div");
       loadingOverlay.style.position = "fixed";
@@ -342,12 +331,8 @@
         } else {
           alert("اللعبة غير معروفة");
         }
-
       }, waitTime);
     });
-
-    // رابط الكود يفتح المتصفح الخارجي (لو التطبيق يسمح بذلك)
-    // هنا الرابط هو <a> بالفعل، فلا داعي لجافاسكريبت إضافي
   </script>
 </body>
 </html>
